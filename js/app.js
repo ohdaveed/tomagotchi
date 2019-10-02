@@ -15,7 +15,7 @@ $('#submit-btn').on('click', () => {
   const input = $('#input-box').val();
   event.preventDefault();
   game.inputArr.push( $('#input-box').val())
-  game.start()
+  game.start(userInput)
 
 });
 
@@ -45,14 +45,13 @@ const game = {
 	const newTom = new Tamagotchi(($('#input-box').val()), 0, 0, 0);
 	console.log('newPet')
 	},
-	start: function () {
+	start: function (name) {
 
 		const $timer = $('#timer');
-
-	    const interval = setInterval(() =>{
-
-	        if(this.time  === 1000){
-	        	clearInterval(); 
+        const interval = setInterval(() =>{
+	    	this.time ++;
+	        if(this.time % 100 === 0){
+	        	this.increaseHunger()
 	        } else {
 	        	this.time++
 	        }
@@ -77,8 +76,9 @@ const game = {
 	},
 	printStats: function () {
 
-	},
-  	startTimer: function (){
+  	},
+  	increaseHunger: function (){
+  		this.pet['hunger'] += 2;
 
   	},
 }
