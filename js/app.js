@@ -12,10 +12,29 @@ class Tamagotchi {
 $('#submit-btn').on('click', () => {
   console.log('clicked');
   console.log( $('#input-box').val());
+  const input = $('#input-box').val();
+  event.preventDefault();
+  game.inputArr.push( $('#input-box').val())
+});
+
+$('#left-button').on('click', () => {
+  console.log('left button');
+  event.preventDefault();
+});
+
+$('#right-button').on('click', () => {
+  console.log('right button');
+  event.preventDefault();
+});
+
+$('#middle-button').on('click', () => {
+  console.log('middle button');
+  event.preventDefault();
 });
 
 const game = {
 	time: 0,
+	inputArr: [],
 	feedPet: function (){
 
 	},
