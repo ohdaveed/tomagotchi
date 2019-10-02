@@ -52,6 +52,8 @@ const game = {
 	    	this.time ++;
 	        if(this.time % 100 === 0){
 	        	this.increaseHunger()
+	        	this.increaseBoredom()
+	        	this.increaseAge()
 	        } else {
 	        	this.time++
 	        }
@@ -59,17 +61,15 @@ const game = {
 	        }, 1000)
 	},
 	feedPet: function (){
-		tamagotchi.hunger--
+		this.pet['hunger'] -= 1;
 	},
 	changeLights: function (){
-		$('#body').css('background-color', 'yellow')
+		$('body').css('background-color', 'yellow')
 	},
 	play: function (){
-		tamagotchi.boredom--
+		this.pet['boredom'] -= 1;
 	},
-	name: function (){
 
-	},
 	gameOver: function () {
 		if (hunger === 10 || sleepiness === 10 || boredom === 10)
 			console.log("Game Over")
@@ -77,8 +77,13 @@ const game = {
 	printStats: function () {
 
   	},
+  	increaseAge: function(){
+  		this.pet['age'] += 1;
+  	},
   	increaseHunger: function (){
   		this.pet['hunger'] += 2;
-
   	},
+  	increaseBoredom: function (){
+  		this.pet['boredom'] += 2;
+  	}
 }
