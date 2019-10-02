@@ -15,34 +15,58 @@ $('#submit-btn').on('click', () => {
   const input = $('#input-box').val();
   event.preventDefault();
   game.inputArr.push( $('#input-box').val())
+  game.start()
+
 });
 
 $('#left-button').on('click', () => {
   console.log('left button');
+  game.feedPet()
   event.preventDefault();
 });
 
 $('#right-button').on('click', () => {
   console.log('right button');
+  game.changeLights();
   event.preventDefault();
 });
 
 $('#middle-button').on('click', () => {
   console.log('middle button');
+  game.play();
   event.preventDefault();
 });
 
 const game = {
 	time: 0,
 	inputArr: [],
-	feedPet: function (){
+	hunger: 0,
+	newPet: function (){
+	const newTom = new Tamagotchi(($('#input-box').val()), 0, 0, 0);
+	console.log('newPet')
+	},
+	start: function () {
 
+		const $timer = $('#timer');
+
+	    const interval = setInterval(() =>{
+
+	        if(this.time  === 1000){
+	        	clearInterval(); 
+	        } else {
+	        	this.time++
+	        }
+	        $timer.text(`timer: ${this.time}s`)
+	        }, 1000)
+	},
+	feedPet: function (){
+		tamagotchi.hunger--
 	},
 	changeLights: function (){
-
+		$('#body').css('background-color', 'yellow')
 	},
 	play: function (){
-
+		tamagotchi.boredom--
 	},
 	name: function (){
 
