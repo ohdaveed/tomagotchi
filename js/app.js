@@ -25,6 +25,7 @@ const game = {
 	start: function () {
 
 		const $timer = $('#timer');
+		const $name = $('.toma-display')
         const interval = setInterval(() => {
 	    	this.time++;
 	        if(this.time % 2 === 0){
@@ -35,6 +36,7 @@ const game = {
 	        }
 	        // 
 	        $timer.text(`timer: ${this.time}s`)
+	        $name.text(`${this.pet.name}`)
 	    }, 1000)
 	},
 	feedPet: function (){
