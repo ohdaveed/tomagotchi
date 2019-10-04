@@ -19,7 +19,6 @@ const game = {
 		const newTom = new Tamagotchi(name, 0, 0, 0, 0);
 		console.log(newTom)
 		this.pet = newTom
-	    $name.text(`${this.pet.name}`)
 		this.start()
 	},
 
@@ -36,8 +35,10 @@ const game = {
 	       		this.printStats()
 	        }
 
-	        // if any of the values are above 10
+	        if (this.pet.hunger >= 10 || this.pet.sleepiness >= 10 || this.pet.boredom >= 10) {
+	        	clearInterval(interval);
 	        	// stop timer	
+	        }
 
 	        $timer.text(`timer: ${this.time}s`)
 	    }, 1000)
