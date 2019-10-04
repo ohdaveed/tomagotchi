@@ -28,20 +28,23 @@ const game = {
 		const $name = $('.toma-display')
         const interval = setInterval(() => {
 	    	this.time++;
-	        if(this.time % 2 === 0){
-	        	this.increaseHunger()
-	        	this.increaseBoredom()
-	        	this.increaseAge()
-	       		this.printStats()
+	        if(this.time % 3 === 0){
+	        	this.increaseHunger();
+	        	this.increaseBoredom();
+	        	this.increaseAge();
+	        	this.increaseSleepiness()
+	        	this.decreaseSleepiness()
+	       		this.printStats();
 	        }
 
 	        if (this.pet.hunger >= 10 || this.pet.sleepiness >= 10 || this.pet.boredom >= 10) {
 	        	clearInterval(interval);
-	        	// stop timer	
+	        	this.gameOver();	
 	        }
 
 	        $timer.text(`timer: ${this.time}s`)
 	    }, 1000)
+	    $('.toma-display').html("<img src='images/alive.gif'>")
 	},
 	feedPet: function (){
 		this.pet['hunger'] -= 2;
@@ -51,14 +54,24 @@ const game = {
 	changeLights: function (){
 		if(this.light == true) {
 			this.light = false
+			$('#right-button').css('background-color', 'black')
 		} else {
 			this.light = true
+			$('#right-button').css('background-color', 'yellow')
 		}
 		console.log(this.light)
 	},
 
-	changeSleepiness() {
+	increaseSleepiness() {
+		if(this.light == true) {
+			this.pet.sleepiness +=0.5
+		}
+	},
 
+	decreaseSleepiness() {
+		if(this.light == false) {
+			this.pet.sleepiness -=0.5
+		}
 	},
 
 	play: function (){
@@ -67,13 +80,12 @@ const game = {
 	},
 
 	gameOver: function () {
-		if (this.pet['hunger'] >= 10 || this.pet['sleepiness'] >= 10 || this.pet['boredom'] >= 10) {
+			$('.toma-display').html("Muerto!<img src='images/dead.gif'>")
 			console.log("Game Over")
-
 			/// stuff
 			// change puicture
 			// return
-		}
+		
 	},
 	printStats: function () {
 		const $hunger = $('#hunger');
