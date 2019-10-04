@@ -1,10 +1,10 @@
 class Tamagotchi {
 	constructor(name, age, hunger, sleepiness, boredom ) {
-	this.name = name;
-	this.age = age;
-	this.hunger = hunger;
-	this.sleepiness = sleepiness;
-	this.boredom = boredom;
+		this.name = name;
+		this.age = age;
+		this.hunger = hunger;
+		this.sleepiness = sleepiness;
+		this.boredom = boredom;
 	}
 };
 
@@ -12,13 +12,14 @@ const game = {
 	time: 0,
 	inputArr: [],
 	pet: null,
-	light: false,
+	light: true,
 
 
 	newPet: function (name) {
 		const newTom = new Tamagotchi(name, 0, 0, 0, 0);
 		console.log(newTom)
 		this.pet = newTom
+	    $name.text(`${this.pet.name}`)
 		this.start()
 	},
 
@@ -34,9 +35,11 @@ const game = {
 	        	this.increaseAge()
 	       		this.printStats()
 	        }
-	        // 
+
+	        // if any of the values are above 10
+	        	// stop timer	
+
 	        $timer.text(`timer: ${this.time}s`)
-	        $name.text(`${this.pet.name}`)
 	    }, 1000)
 	},
 	feedPet: function (){
@@ -45,16 +48,31 @@ const game = {
 
 	},
 	changeLights: function (){
-		$('body').css('background-color', 'yellow')
+		if(this.light == true) {
+			this.light = false
+		} else {
+			this.light = true
+		}
+		console.log(this.light)
 	},
+
+	changeSleepiness() {
+
+	},
+
 	play: function (){
 		this.pet['boredom'] -= 1;
 		this.printStats()
 	},
 
 	gameOver: function () {
-		if (this.pet['hunger'] === 10 || this.pet['sleepiness'] === 10 || this.pet['boredom'] === 10)
+		if (this.pet['hunger'] >= 10 || this.pet['sleepiness'] >= 10 || this.pet['boredom'] >= 10) {
 			console.log("Game Over")
+
+			/// stuff
+			// change puicture
+			// return
+		}
 	},
 	printStats: function () {
 		const $hunger = $('#hunger');
@@ -83,32 +101,33 @@ const game = {
 
 
 
-$('#submit-btn').on('click', () => {
-  console.log('clicked');
-  console.log( $('#input-box').val());
-  const input = $('#input-box').val();
-  // game.inputArr.push(input)
-  game.newPet(input);
-  event.preventDefault();
+$('form').on('submit', (e) => {
+	e.preventDefault()
+	console.log('clicked');
+	console.log( $('#input-box').val());
+	const input = $('#input-box').val();
+	// game.inputArr.push(input)
+	game.newPet(input);
+  
 
 });
 
 $('#left-button').on('click', () => {
   console.log('left button');
   game.feedPet()
-  event.preventDefault();
+  
 });
 
 $('#right-button').on('click', () => {
   console.log('right button');
   game.changeLights();
-  event.preventDefault();
+  
 });
 
 $('#middle-button').on('click', () => {
   console.log('middle button');
   game.play();
-  event.preventDefault();
+  
 });
 
 
